@@ -1,0 +1,25 @@
+﻿@model BsnssX.Core.Models.BankDetails
+
+
+<table class="table  table-striped table-borderless">
+
+    <tbody>
+        <tr>
+            <td class="small text-right">Bank</td>
+            <td>@Html.DisplayFor(model => model.BankName)</td>
+        </tr>
+        <tr>
+            <td class="small text-right">Account holder</td>
+            <td>@Html.DisplayFor(model => model.AccountHolder)</td>
+        </tr>
+        <tr>
+            <td class="smnall text-right">BIC</td>
+            <td>@Html.DisplayFor(model => model.Bic)</td>
+        </tr>
+        <tr>
+            <td class="small text-right">IBAN</td>
+            <td>@Html.DisplayFor(model => model.Iban)</td>
+        </tr>
+    </tbody>
+
+</table>

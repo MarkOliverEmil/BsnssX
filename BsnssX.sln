@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsnssX.Core", "BsnssX.Core\BsnssX.Core.csproj", "{0A85C073-6BEF-4DB6-940F-0B13073CCDDD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{DAD8DE23-9CAF-421E-B185-4233D6D15E2A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{77DC17F1-EC83-4588-A8E0-E6E4F3FCF397}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A85C073-6BEF-4DB6-940F-0B13073CCDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A85C073-6BEF-4DB6-940F-0B13073CCDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A85C073-6BEF-4DB6-940F-0B13073CCDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A85C073-6BEF-4DB6-940F-0B13073CCDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD8DE23-9CAF-421E-B185-4233D6D15E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD8DE23-9CAF-421E-B185-4233D6D15E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD8DE23-9CAF-421E-B185-4233D6D15E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD8DE23-9CAF-421E-B185-4233D6D15E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77DC17F1-EC83-4588-A8E0-E6E4F3FCF397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77DC17F1-EC83-4588-A8E0-E6E4F3FCF397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77DC17F1-EC83-4588-A8E0-E6E4F3FCF397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77DC17F1-EC83-4588-A8E0-E6E4F3FCF397}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF06464A-89F2-4976-9D1D-FAC045FA6AB2}
+	EndGlobalSection
+EndGlobal

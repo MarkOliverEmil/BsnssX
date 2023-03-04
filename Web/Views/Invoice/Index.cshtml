@@ -1,0 +1,256 @@
+﻿@model Web.Models.InvoiceExpensesViewModel
+@{
+    ViewData["Title"] = "Invoices & Expenses";
+}
+
+<h1>Invoices &amp; Expenses - @Model.SelectedYear</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+            <form asp-controller="Invoice" asp-action="OnYear" method="post">
+                <div class="form-group">
+                    <select class="form-control" asp-items="@ViewBag.Years" asp-for="SelectedYear" onchange="this.form.submit()" dir="rtl"></select>
+                </div>
+            </form>
+        </div>
+        <div class="col-2">
+            <form asp-controller="Invoice" asp-action="OnPeriodChanged" method="post">
+                <div class="form-group">
+                    <select class="form-control" asp-items="@ViewBag.ReportList" asp-for="SelectedReportPeriod" onchange="this.form.submit()" dir="rtl"></select>
+                </div>
+            </form>
+        </div>
+        @*<div class="col text-right">
+                <a asp-action="ShowReport" asp-route-id="@Model.Mandant.Id" asp-route-year="@Model.SelectedYear" asp-route-period="@Model.SelectedReportPeriod">
+                    <i class="bi-file-text ms-icon-normal" data-toggle="tooltip" title="Show report"></i>
+                </a>
+        
+        </div>*@        
+        <div class="col text-right">
+            @if (Model.InvoiceExpenseState == InvoiceExpenseState.State.Open &&  Model.Emails.Any())
+            {
+                <a asp-action="" data-toggle="modal" data-target="#confirmEmailSendDlg">
+                    <i class="bi bi-envelope-at ms-icon-big" data-toggle="tooltip" title="Send report by email"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmEmailSendDlg" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">             
+            <form asp-controller="Invoice" asp-action="SendReport" method="post"     >
+                <input type="hidden" asp-for="@Model.SelectedYear" />
+                <input type="hidden" asp-for="@Model.SelectedReportPeriod" />
+                <input type="hidden" asp-for="@Model.Mandant" />
+                <input type="hidden" asp-for="@Model.Invoices" />
+                <input type="hidden" asp-for="@Model.Title" />
+                <input type="hidden" asp-for="@Model.Expenses" />
+            
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@Model.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            
+                <div class="modal-body">                   
+                    <div class="container">
+                        @for (var index = 0; index < @Model.Emails.Count(); index++)
+                        {
+                            <input type="hidden" asp-for="@Model.Emails[index].Email" />
+                            <input type="checkbox" asp-for="@Model.Emails[index].IsChecked" class="form-check-input" />                        
+                            <label class="form-check-label" asp-for="@Model.Emails[index].IsChecked">@Model.Emails[index].Email</label>                
+                            <br />
+                        }
+                    </div>                
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" >Send report</button>                
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<hr />
+
+@if (Model.Mandant != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-7"></div>
+            <div class="col-5">
+                <h3>Mandant</h3>
+                @await Html.PartialAsync("_AddressView", Model.Mandant.Address)
+            </div>
+        </div>
+    </div>
+    <hr class="my-3">
+}
+
+<div class="row">
+    <div class="col-11">
+        <h3>Invoices</h3>
+    </div>
+    <div class="col-1 text-right">
+        @if (Model.InvoiceExpenseState == InvoiceExpenseState.State.Open)
+        {
+            <a asp-action="InvoiceCreate" asp-route-id="@Model.Mandant.Id" asp-route-year="@Model.SelectedYear">
+                <i class="bi-plus-circle ms-icon-big" data-toggle="tooltip" title="Add invoice"></i>
+            </a>
+        }
+
+    </div>
+</div>
+<hr class="my-3" />
+
+<table class="table  table-striped table-hover table-borderless">
+    <thead>
+        <tr>
+            <th class="fit"></th>
+            <th>Client</th>
+            <th>Invoice No</th>
+            <th>Description</th>
+            <th>Year</th>
+            <th>Billing date</th>
+            <th>Payment date</th>
+            <th>State</th>
+            <th class="text-right">Amount</th>
+            <th class="fit"></th>
+            <th class="fit"></th>
+            <th class="fit"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Invoices)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Invoice.Id">
+                        <i class="bi-info-circle ms-icon-normal" data-toggle="tooltip" title="Invoice">
+                        </i>
+                    </a>
+                </td>
+
+                <td>@Html.DisplayFor(modelItem => item.Client)</td>
+                <td>@Html.DisplayFor(modelItem => item.InvoiceNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.YearQuart)</td>
+                <td>@Html.DisplayFor(modelItem => item.BillingDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.PaymentDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.InvoiceState)</td>
+                <td class="font-weight-bold text-right">@Html.DisplayFor(modelItem => item.Price) €</td>
+                <td class="fit">
+                    <a asp-action="InvoiceEdit" asp-route-id="@item.Invoice.Id">
+                        <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit invoice"></i>
+                    </a>
+                </td>                
+                <td>
+                    @if (Model.InvoiceExpenseState == InvoiceExpenseState.State.Open)
+                    {
+                        <a asp-action="CreatePDF" asp-route-id="@item.Invoice.Id">
+                            <i class="bi-file-pdf ms-icon-normal"></i>
+                        </a>
+                    }
+                </td>
+                <td>
+                    <span class="badge bg-primary rounded-pill">@Html.DisplayFor(modelItem => item.NoAttachments)</span>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="7"></td>
+            <td class="font-weight-bold">Sum:</td>
+            <td class="font-weight-bolder text-right">@Html.DisplayFor(model => Model.InvoicesSum) €</td>
+            <td colspan="3"></td>
+        </tr>
+    </tbody>
+</table>
+<hr class="my-3">
+
+
+<div class="row">
+    <div class="col-11">
+        <h3>Expenses</h3>
+    </div>
+    <div class="col-1 text-right">
+        @if (Model.InvoiceExpenseState == InvoiceExpenseState.State.Open)
+        {
+        <a asp-action="ExpenseCreate" asp-route-id="@Model.Mandant.Id" asp-route-year="@Model.SelectedYear">
+            <i class="bi-plus-circle ms-icon-big" data-toggle="tooltip" title="Add expense"></i>
+        </a>
+        }        
+    </div>
+</div>
+<hr class="my-3" />
+@if (Model.Expenses.Count > 0)
+{
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th class="fit"></th>
+                <th>Vendor</th>
+                <th>Expense No</th>
+                <th>Description</th>
+                <th>Year</th>
+                <th>Date</th>
+                <th>State</th>
+                <th class="text-right">Amount</th>
+                <th class="fit"></th>
+                <th class="fit"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <p></p>
+            @foreach (var exp in Model.Expenses)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="ExpenseDetails" asp-route-id="@exp.Expense.Id">
+                            <i class="bi-info-circle ms-icon-normal" data-toggle="tooltip" title="Display document"></i>
+                        </a>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => exp.Expense.Vendor.Address.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => exp.Expense.Number)</td>
+                    <td>@Html.DisplayFor(modelItem => exp.Expense.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => exp.YearQuart)</td>
+                    <td>@Html.DisplayFor(modelItem => exp.PaymentDate)</td>
+                    <td>@Html.DisplayFor(modelItem => exp.Expense.ExpenseState)</td>
+                    <td class="font-weight-bold text-right">@Html.DisplayFor(modelItem => exp.Price) €</td>
+                    <td>
+                        <div class="col m-0 p-0">
+                            <a asp-action="ExpenseEdit" asp-route-id="@exp.Expense.Id">
+                                <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit expense"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary rounded-pill">@Html.DisplayFor(modelItem => exp.NoAttachments)</span>
+                    </td>
+                </tr>
+            }
+
+            @if (Model.Expenses.Count > 1)
+            {
+                <tr>
+                    <td colspan="6"></td>
+                    <td class="font-weight-bold">Sum:</td>
+                    <td class="font-weight-bold text-right">@Html.DisplayFor(model => Model.ExpensesSum) €</td>
+                    <th colspan="2"></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr class="my-3" />
+
+}
+
+
+

@@ -1,0 +1,40 @@
+﻿@model BsnssX.Core.Models.Address
+
+
+<table class="table  table-striped table-hover table-borderless">
+    <tbody>
+        <tr>
+            <td class="small text-right">Company</td>
+            @if (string.IsNullOrWhiteSpace(Model.Name2))
+            {
+                <td>@Html.DisplayFor(model => Model.Name)</td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(model => Model.Name)<br />
+                    @Html.DisplayFor(model => Model.Name2)
+                </td>
+            }
+        </tr>
+        <tr>
+            <td class="small text-right">Address</td>
+            <td>
+                @Html.DisplayFor(model => Model.AddressLine1)<br />
+                @if(!string.IsNullOrEmpty(Model.AddressLine2))
+                {
+                @Html.DisplayFor(model => Model.AddressLine2)<br />
+                }
+                @if(!string.IsNullOrEmpty(Model.AddressLine3))
+                {
+                @Html.DisplayFor(model => Model.AddressLine3)<br />
+                }                
+                @Html.DisplayFor(model => Model.Country)
+            </td>
+        </tr>
+        <tr>
+            <td class="small text-right">VAT</td>
+            <td>@Html.DisplayFor(model => Model.VatNumber)</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,113 @@
+﻿@using Web.Extensions;
+@model Web.Models.DocumentsListViewModel
+
+@{
+    ViewData["Title"] = "Documents";
+}
+
+@if (Model.Mandant != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-7"></div>
+            <div class="col-5">
+                <h3>Mandant</h3>
+                @await Html.PartialAsync("_AddressView", Model.Mandant.Address)
+            </div>
+        </div>
+    </div>
+    <hr class="my-3">
+}
+
+<div class="row">
+    <div class="col-7 my-auto">
+        <h3>Documents</h3>
+    </div>
+    
+    <div class="col-1 my-auto">
+        <form asp-action="OnFilterChanged" method="post">
+            <div class="form-group">
+                <input type="hidden" asp-for="SelectedDocType" />
+                <select class="form-control" asp-items="@ViewBag.Years" asp-for="SelectedYear" onchange="this.form.submit()" dir="rtl"></select>
+            </div>
+        </form>
+    </div>
+    <div class="col-2 my-auto">
+        <form asp-action="OnFilterChanged" method="post">
+            <input type="hidden" asp-for="SelectedYear" />
+            <div class="form-group">
+                <select class="form-control" asp-items="@ViewBag.DocTypes" asp-for="SelectedDocType" onchange="this.form.submit()" dir="rtl"></select>
+            </div>
+        </form>
+    </div>    
+    <div class="col-1 my-auto">
+        <a asp-action="DownloadZip">
+            <i class="bi-file-earmark-zip ms-icon-big" data-toggle="tooltip" title="Download data"></i>
+        </a>
+    </div>
+    <div class="col-1 text-right my-auto">
+        <a asp-action="CreateDocument">
+            <i class="bi-plus-circle ms-icon-big" data-toggle="tooltip" title="Add document"></i>
+        </a>
+
+    </div>
+
+</div>
+
+<hr class="my-3" />
+
+@if (Model.Documents != null && Model.Documents.Any())
+{
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th></th>
+                <th>File</th>
+                <th>Year</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model.Documents)
+            {
+                @*<tr onclick="@Url.Action("DisplayDocument", "Document", new { id = d.Id })">*@
+                <tr class="col my-auto">
+                    <td>
+                        <a asp-action="DisplayDocument" asp-route-id="@d.Id">
+                            <i class="bi-info-circle ms-icon-normal" data-toggle="tooltip" title="Display document"></i>
+                        </a>
+                    </td>
+                    <td>@Html.DisplayFor(model => d.FileName)</td>
+                    <td>
+                        @if (d.Year > 200)
+                            @Html.DisplayFor(model => d.Year)
+                    </td>
+
+                    <td>@Html.DisplayFor(model => d.DocumnentType)</td>
+                    <td>@Html.DisplayFor(model => d.Timestamp)</td>
+                        <td>@Html.DisplayFor(model => d.ShortComment )</td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <a asp-action="DownloadDocument" asp-route-id="@d.Id">
+                                    <i class="bi-cloud-arrow-down ms-icon-normal" data-toggle="tooltip" title="Download document"></i>
+                                </a>
+                            </div>                            
+                            <div class="col">
+                                <a asp-action="EditDocument" asp-route-id="@d.Id">
+                                    <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit document"></i>
+                                </a>
+                            </div>                            
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr class="my-3" />
+
+

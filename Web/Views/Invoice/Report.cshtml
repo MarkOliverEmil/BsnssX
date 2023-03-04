@@ -1,0 +1,160 @@
+﻿@model Web.Models.InvoiceExpensesViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Report";
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Report</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/bootstrap-icons/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/simplexbootstrap.css" />
+</head>
+<style>
+    table {
+        padding: 10px;
+        margin: 10px;
+    }
+    th, td {
+        border: 1px solid grey;
+        padding: 10px;
+        margin: 10px;
+    }
+</style>
+
+<body class="m-3 p-3">
+
+
+    <div class="row">
+        <h2>@Model.Title</h2>
+    </div>
+    <hr class="my-3" />
+
+
+    <div class="row">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Company</td>
+                    <td>@Html.DisplayFor(model => Model.Mandant.Address.Name)</td>
+                </tr>
+                <tr>
+                    <td>Address<br /><br /><br /></td>
+                    <td>
+                        @Html.DisplayFor(model => Model.Mandant.Address.AddressLine1)<br />
+                        @Html.DisplayFor(model => Model.Mandant.Address.AddressLine2)<br />
+                        @Html.DisplayFor(model => Model.Mandant.Address.AddressLine3)<br />
+                        @Html.DisplayFor(model => Model.Mandant.Address.Country)
+                    </td>
+                </tr>
+                <tr>
+                    <td>VAT</td>
+                    <td>@Html.DisplayFor(model => Model.Mandant.Address.VatNumber)</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <hr class="my-3">
+
+    <div class="row">
+        <h3>Invoices</h3>
+    </div>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>VAT</th>
+                    <th>Invoice No</th>
+                    <th>Year</th>
+                    <th>Payment date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Invoices)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Client)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Invoice.Client.VatNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.InvoiceNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.YearQuart)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymentDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Invoice.Price) €</td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="font-weight-bold">Sum:</td>
+                    <td class="font-weight-bolder">@Html.DisplayFor(model => Model.InvoicesSum) €</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr class="my-3">
+
+    @if(Model.Expenses.Any())
+    { 
+
+    <div class="row">
+        <h3>Expenses</h3>
+    </div>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <th>Vendor</th>
+                    <th>Description</th>
+                    <th>Number</th>
+                    <th>Date</th>
+                    <th>Year - Quartal</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <p></p>
+                @foreach (var exp in Model.Expenses)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => exp.Expense.Vendor.Address.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => exp.Expense.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => exp.Expense.Number)</td>
+                        <td>@Html.DisplayFor(modelItem => exp.PaymentDate)</td>
+                        <td>@Html.DisplayFor(modelItem => exp.YearQuart)</td>
+                        <td class="font-weight-bold text-right">@Html.DisplayFor(modelItem => exp.Price) €</td>
+                    </tr>
+
+                }
+                @if (Model.Expenses.Count > 1)
+                {
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="font-weight-bold">Sum:</td>
+                        <td class="font-weight-bold text-right">@Html.DisplayFor(model => Model.ExpensesSum) €</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <hr class="my-3">
+    }
+    <br />
+    <div class="container">
+        <h4>Best regards</h4>
+        <h4>Tom Sailor</h4>
+    </div>
+</body>
+</html>

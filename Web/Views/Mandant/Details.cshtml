@@ -1,0 +1,270 @@
+﻿@model BsnssX.Core.Models.Mandant
+
+@{
+    ViewData["Title"] = "Mandant";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Mandant</h1>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-5 btn-group-vertical">
+        <form asp-controller="Mandant" asp-action="OnMandant" method="post">
+            <div class="form-group">
+                <select class="form-control" asp-items="@ViewBag.Mandants" asp-for="SelectedMandant" onchange="this.form.submit()" dir="rtl"></select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-3"></div>
+        <div class="col-5">
+            @await Html.PartialAsync("_AddressViewWithCommunication", Model.Address)
+        </div>
+    </div>
+</div>
+<hr class="my-5">
+
+
+<h3>Clients</h3>
+
+<table class="table  table-striped table-hover table-borderless">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th class="text-right">Vat</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model.Clients)
+        {
+            <tr>
+
+                @if (string.IsNullOrWhiteSpace(client.Name2))
+                {
+                    <td>@Html.DisplayFor(model => client.Name)</td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(model => client.Name)<br>
+                        @Html.DisplayFor(model => client.Name2)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(model => client.AddressLine1)<br>
+                    @Html.DisplayFor(model => client.AddressLine2)<br>
+                    @if (!string.IsNullOrWhiteSpace(client.AddressLine3))
+                    {
+                        @Html.DisplayFor(model => client.AddressLine3)<br>
+                    }
+                    <b>@Html.DisplayFor(model => client.Country)</b>
+
+                <td>
+                    @*@foreach (var ci in client.ComInfos)
+                    {
+                        @Html.DisplayFor(model => ci.Value)<br />
+                    }*@
+                </td>
+                <td class="text-right">@Html.DisplayFor(item => client.VatNumber)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr class="my-3" />
+
+
+@if (Model.Vendors != null && Model.Vendors.Any())
+{
+    <h3>Vendors</h3>
+
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Vat</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vendor in Model.Vendors)
+            {
+                <tr>
+                    @if (string.IsNullOrWhiteSpace(vendor.Address.Name2))
+                    {
+                        <td>@Html.DisplayFor(model => vendor.Address.Name)</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(model => vendor.Address.Name)<br>
+                            @Html.DisplayFor(model => vendor.Address.Name2)
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(model => vendor.Address.AddressLine1)<br>
+                        @Html.DisplayFor(model => vendor.Address.AddressLine2)<br>
+                        @if (!string.IsNullOrWhiteSpace(vendor.Address.AddressLine3))
+                        {
+                            @Html.DisplayFor(model => vendor.Address.AddressLine3)<br>
+                        }
+                        <b>@Html.DisplayFor(model => vendor.Address.Country)</b>
+
+                    <td>
+                        @*@foreach (var ci in vendor.Address.ComInfos)
+                        {
+                            @Html.DisplayFor(model => ci.Value)<br />
+                        }*@
+                    </td>
+                    <td class="text-right">@Html.DisplayFor(item => vendor.Address.VatNumber)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr class="my-3" />
+}
+
+@if (Model.BookableItems != null)
+{
+    <h3>Services</h3>
+
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th class="text-right">Unit</th>
+                <th class="text-right">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BookableItems)
+            {
+                <tr>
+                    @if (string.IsNullOrWhiteSpace(item.Description2))
+                    {
+                        <td>@Html.DisplayFor(model => item.Description)</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(model => item.Description)<br>
+                            @Html.DisplayFor(model => item.Description2)
+                        </td>
+                    }
+                    <td class="text-right">@Html.DisplayFor(model => item.Unit)</td>
+                    <td class="text-right">@Html.DisplayFor(model => item.PriceString)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr class="my-3" />
+}
+
+
+@if (Model.TaxesForYear != null && Model.TaxesForYear.Any())
+{
+    <h3>Tax</h3>
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th>Year - State</th>
+                <th>Turnover</th>
+                <th>Expenses</th>
+                <th>Tax</th>
+                <th>Profit after tax</th>
+                <th>Profit</th>
+                <th>Social Security</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.TaxesForYear)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => t.Year) - @Html.DisplayFor(model => t.TaxState)</td>
+                    <td>@Html.DisplayFor(model => t.Turnover) €</td>
+                    <td>@Html.DisplayFor(model => t.ExpensesAmount) €</td>
+                    <td>@Html.DisplayFor(model => t.Tax) €</td>
+                    <td>@Html.DisplayFor(model => t.ProfitAfterTax) €</td>
+                    <td>@Html.DisplayFor(model => t.Profit) %</td>
+                    <td>@Html.DisplayFor(model => t.SocialSecurity) €</td>
+                    <td>
+                        <a asp-action="TaxDetails" asp-route-id="@t.Id">
+                            <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit "></i>
+                        </a>
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr class="my-3" />
+}
+
+
+@*<h3>Documents</h3>
+<div class="container">
+    <a asp-action="AddDocument" me asp-route-id="@Model.Id">
+        <i class="bi bi-cloud-plus ms-icon-big" data-toggle="tooltip" title="Add document"></i>
+    </a>
+</div>*@
+@if (false && Model.Documents != null && Model.Documents.Any())
+{
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Year</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model.Documents)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => d.FileName)</td>
+                    <td>
+                        @if (d.Year > 200)
+                            @Html.DisplayFor(model => d.Year)
+                    </td>
+
+                    <td>@Html.DisplayFor(model => d.DocumnentType)</td>
+                    <td>@Html.DisplayFor(model => d.Timestamp)</td>
+                    <td>@Html.DisplayFor(model => d.Comment)</td>
+                    <td>
+                        <div class="row m-0 p-0">
+                            <div class="col m-0 p-0">
+                                <a asp-action="GetDocument" asp-route-id="@d.Id">
+                                    <i class="bi bi-cloud-arrow-down ms-icon-normal" data-toggle="tooltip" title="Download document"></i>
+                                </a>
+                            </div>
+                            @*<div class="col  m-0 p-0">
+                                <a asp-action="ViewDocument" asp-route-id="@d.Id">
+                                    <i class="bi bi-image ms-icon-normal" data-toggle="tooltip" title="View document"></i>
+                                </a>
+                            </div>*@
+                            <div class="col m-0 p-0">
+                                <a asp-action="DeleteDocument" asp-route-id="@d.Id">
+                                    <i class="bi bi-trash3 ms-icon-normal" data-toggle="tooltip" title="Delete document"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

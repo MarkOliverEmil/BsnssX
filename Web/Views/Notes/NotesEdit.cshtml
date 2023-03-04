@@ -1,0 +1,94 @@
+﻿@model Note
+@{
+    ViewData["Title"] = "Note";
+}
+
+<div class="row">
+    <div class="col">
+        <h4>Note</h4>
+    </div>
+    <div class="col text-right">
+        <div class="btn-group">
+            
+            @if (ViewBag.IsLeistungsnachweis != null && ViewBag.IsLeistungsnachweis)
+            {                                    
+                <a asp-action="CreateLeistungsnachweisPdf"
+                   asp-route-title="@Model.Title"
+                   asp-route-year="@Model.Year"
+                   asp-route-text="@Model.Text">                    
+                        <i class="bi-file-earmark-pdf ms-icon-big" data-toggle="tooltip" title="Leistungsnachweis"></i>
+                    </a>
+            }
+            <a asp-action="Index">
+                <i class="bi bi-arrow-return-left  ms-icon-big" data-toggle="tooltip" title="Back to List"></i>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<section>
+
+    <div class="container  border border-primary rounded m-20">
+        <form asp-action="NotesEdit" asp-controller="Notes" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Title</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Year</label>
+                        <input asp-for="Year" class="form-control" />
+                        <span asp-validation-for="Year" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Type</label>
+                        <input asp-for="NoteType" class="form-control" />
+                        <span asp-validation-for="NoteType" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Date</label>
+                        <input asp-for="Date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.HtmlText))
+            {
+                <div class="row">
+                <div class="container justify-content-center border border-info rounded">
+                    @Html.Raw(Model.HtmlText)
+                </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="Text" class="control-label"></label>
+                    <textarea asp-for="Text" class="form-control" text-wrap:normal" type="text" rows="5" placeholder="Please add your comment here"></textarea>
+                    <span asp-validation-for="Text" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group my-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+           
+        </form>
+    </div>
+
+</section>

@@ -1,0 +1,115 @@
+﻿@model AddressView
+@{
+    ViewData["Title"] = "Address";
+}
+
+<div class="row">
+    <div class="col">
+        <h4>Address</h4>
+    </div>
+    <div class="col text-right">
+
+        <a asp-action="Index">
+            <i class="bi bi-arrow-return-left  ms-icon-big" data-toggle="tooltip" title="Back to List"></i>
+        </a>
+    </div>
+</div>
+
+<hr class="my-3" />
+<div class="container">
+    <form asp-action="AddressEdit" asp-controller="Address" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Address.Id" />
+        <input type="hidden" asp-for="IsNew" />
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input asp-for="Address.Name" class="form-control" />
+                    <span asp-validation-for="Address.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Name2</label>
+                    <input asp-for="Address.Name2" class="form-control" />
+                    <span asp-validation-for="Address.Name2" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">VatNumber</label>
+                    <input asp-for="Address.VatNumber" class="form-control" />
+                    <span asp-validation-for="Address.VatNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Address Line 1</label>
+                    <input asp-for="Address.AddressLine1" class="form-control" />
+                    <span asp-validation-for="Address.AddressLine1" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Address Line 2</label>
+                    <input asp-for="Address.AddressLine2" class="form-control" />
+                    <span asp-validation-for="Address.AddressLine2" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Address Line 3</label>
+                    <input asp-for="Address.AddressLine3" class="form-control" />
+                    <span asp-validation-for="Address.AddressLine3" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Country</label>
+                    <input asp-for="Address.Country" class="form-control" />
+                    <span asp-validation-for="Address.Country" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.ContactInfos != null && Model.ContactInfos.Any())
+        {
+            <hr class="my-3" />
+            <table class="table  table-striped table-hover table-borderless">
+                <tbody>
+                    @foreach (var item in Model.ContactInfos)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Subtype)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Value)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <hr class="my-3">
+
+        <div class="row">
+            <div class="form-group">
+                <label asp-for="Address.Comment" class="control-label"></label>
+                <textarea asp-for="Address.Comment" class="form-control" text-wrap:normal" type="text" rows="5" placeholder="Please add your comment here"></textarea>
+                <span asp-validation-for="Address.Comment" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group my-3">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+

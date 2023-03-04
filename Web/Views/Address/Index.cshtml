@@ -1,0 +1,72 @@
+﻿@model Web.Models.AddressListViewModel
+
+@{
+    ViewData["Title"] = "Addresses";
+}
+<div class="row">
+    <div class="col-11">
+        <h3>Addresses</h3>
+    </div>
+    <div class="col-1 text-right">
+        <a asp-action="AddressCreate"  >
+            <i class="bi-plus-circle ms-icon-big" data-toggle="tooltip" title="Add address"></i>
+        </a>
+    </div>
+</div>
+
+<hr class="my-3" />
+
+<table class="table  table-striped table-hover table-borderless">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>VAT</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model.Addresses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => a.Address.Name)
+                    @if (!string.IsNullOrEmpty(a.Address.Name2))
+                    {
+                        <br />@Html.DisplayFor(model => a.Address.Name2)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(model => a.Address.AddressLine1)
+                    @if (!string.IsNullOrEmpty(a.Address.AddressLine2))
+                    {
+                        <br />@Html.DisplayFor(model => a.Address.AddressLine2)
+                    }
+                    @if (!string.IsNullOrEmpty(a.Address.AddressLine3))
+                    {
+                        <br />@Html.DisplayFor(model => a.Address.AddressLine3)
+                    }
+                </td>
+                <td>@Html.DisplayFor(model => a.Address.Country)</td>
+                <td>@Html.DisplayFor(model => a.Address.VatNumber)</td>
+                <td>
+
+                    @foreach (var ci in a.ContactInfos)
+                    {
+                    <div class="row">                            
+                        @Html.DisplayFor(model => ci.Value)                    
+                    </div>
+                    }
+                </td>
+                <td>
+                    <a asp-action="AddressEdit" asp-route-id="@a.Address.Id">
+                        <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit address"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr class="my-3" />

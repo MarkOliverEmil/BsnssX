@@ -1,0 +1,115 @@
+﻿@model Web.Models.NotesListViewModel
+
+@{
+    ViewData["Title"] = "Notes";
+}
+
+@if (Model.Mandant != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-7"></div>
+            <div class="col-5">
+                <h3>Mandant</h3>
+                @await Html.PartialAsync("_AddressView", Model.Mandant.Address)
+            </div>
+        </div>
+    </div>
+    <hr class="my-3">
+}
+
+<div class="row">
+    <div class="col-8 my-auto">
+        <h3>Notes</h3>
+    </div>
+    <div class="col-1 my-auto">
+        <form asp-action="OnFilterChanged" method="post">
+            <div class="form-group">
+                <input type="hidden" asp-for="SelectedNoteType" />
+                <select class="form-control" asp-items="@ViewBag.Years" asp-for="SelectedYear" onchange="this.form.submit()" dir="rtl"></select>
+            </div>
+        </form>
+    </div>
+    <div class="col-2 my-auto">
+        <form asp-action="OnFilterChanged" method="post">
+            <input type="hidden" asp-for="SelectedYear" />
+            <div class="form-group">
+                <select class="form-control" asp-items="@ViewBag.DocTypes" asp-for="SelectedNoteType" onchange="this.form.submit()" dir="rtl"></select>
+            </div>
+        </form>
+    </div>
+    <div class="col-1 text-right my-auto">
+        <a asp-action="NoteCreate">
+            <i class="bi-plus-circle ms-icon-big" data-toggle="tooltip" title="Create note"></i>
+        </a>
+
+    </div>
+
+</div>
+
+<hr class="my-3" />
+
+@if (Model.Notes != null && Model.Notes.Any())
+{
+    <table class="table  table-striped table-hover table-borderless">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Year</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th class="fit"></th>
+                <th class="fit"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model.Notes)
+            {
+                var tm = "#myModal" + d.Id;
+                var mid = "myModal" + d.Id;
+                DeleteDialogModel ddm = new DeleteDialogModel();
+                ddm.Text = "Are you sure you want to delete ?";
+                ddm.Id = d.Id;
+                ddm.Title = "Confirm delete '" + d.Note.Title + "'";
+                ddm.AspAction = "DeleteNote";
+                ddm.AspController = "Notes";
+
+                <tr class="col my-auto">
+                    @*<td>
+                            <a asp-action="DisplayNote" asp-route-id="@d.Id">
+                                <i class="bi-info-circle ms-icon-normal" data-toggle="tooltip" title="Show note"></i>
+                            </a>
+                        </td>*@
+                    <td>@Html.DisplayFor(model => d.Note.Title)</td>
+                    <td>@Html.DisplayFor(model => d.TextShort)</td>
+                    <td>
+                        @if (d.Note.Year > 2000)
+                            @Html.DisplayFor(model => d.Note.Year)
+                    </td>
+
+                    <td>@Html.DisplayFor(model => d.Note.NoteType)</td>
+                    <td>@Html.DisplayFor(model => d.Timestamp)</td>
+                    <td class="text-right">
+                        <a asp-action="NotesEdit" asp-route-id="@d.Id">
+                            <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit note"></i>
+                        </a>                        
+                    </td>                    
+                    <td class="text-right">
+                        <a asp-action="" data-toggle="modal" data-target="@tm">
+                            <i class="bi bi-trash3 ms-icon-normal" data-toggle="tooltip" title="Delete note"></i>
+                        </a>
+                        <div class="modal fade" id="@mid" tabindex="-1" role="dialog">
+                            @await Html.PartialAsync("_DeleteDialog", ddm);
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr class="my-3" />
+
+
+
+

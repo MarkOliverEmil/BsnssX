@@ -1,0 +1,162 @@
+﻿@model Web.Models.InvoiceViewModel
+
+@{
+    ViewData["Title"] = "Invoice";
+}
+<style>
+    .wrap {
+        padding: 5px;
+        background-color: #367ad2;
+        border: 1px solid #DDD;
+        color: white;
+    }
+    img {
+        max-height: 100px;
+        width: auto;
+        align-content:flex-start;
+        /*border: 1px solid black;*/
+    }
+</style>
+
+@*<hr class="m-3" />*@
+
+<div class="container">
+    <div class="row class wrap">        
+        <div class="col-10 text-right">
+            <h2>@Html.DisplayFor(model => model.Invoice.Vendor.Address.Name)</h2>
+            @if (!string.IsNullOrEmpty(Model.Invoice.Vendor.Address.Name2))
+            {
+                <h2>@Html.DisplayFor(model => model.Invoice.Vendor.Address.Name2)</h2>
+            }
+        </div>
+    </div>
+</div>
+
+<hr class="my-md-3">
+
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            @*@if (ViewBag.ImageFile != null)
+            {
+                <img src="@ViewBag.ImageFile" id="image12" />
+            }*@
+        </div>
+        <div class="col-6"></div>
+        <div class="col-4">
+            <h4>Provider</h4>
+            @await Html.PartialAsync("_AddressView", Model.Invoice.Vendor.Address)
+        </div>
+    </div>
+    <hr class="my-3">
+    <div class="row wrap">
+        @*<div class="col-sm text-sm-right"><h4>Invoice No: </h4></div>*@
+        <div class="col text-left" ><h4>Invoice : @Html.DisplayFor(model => model.InvoiceNumber)</h4></div>
+        <div class="col"> </div>
+        <div class="col text-right"><h4>Billing Date: @Html.DisplayFor(model => Model.BillingDate)</h4></div>
+    </div>
+
+    <hr class="my-3">
+
+    <div class="row">
+        <div class="col-sm">
+            <h4>Recipient</h4>
+            @await Html.PartialAsync("_AddressView", Model.Invoice.Client)
+        </div>
+
+        <div class="col-sm"></div>
+
+        <div class="col-sm">
+            <h4>Payment Details</h4>
+            <table class="table  table-striped table-borderless">
+                <tbody>
+                    <tr>
+                        <td class="small text-right">Bank</td>
+                        <td>@Html.DisplayFor(model => model.Invoice.Vendor.BankDetails.BankName)</td>
+                    </tr>
+                    <tr>
+                        <td class="small text-right">Account holder</td>
+                        <td>@Html.DisplayFor(model => model.Invoice.Vendor.BankDetails.AccountHolder)</td>
+                    </tr>
+                    <tr>
+                        <td class="smnall text-right">BIC</td>
+                        <td>@Html.DisplayFor(model => model.Invoice.Vendor.BankDetails.Bic)</td>
+                    </tr>
+                    <tr>
+                        <td class="small text-right">IBAN</td>
+                        <td>@Html.DisplayFor(model => model.Invoice.Vendor.BankDetails.Iban)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr class="my-3">
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="text-right">
+                    <tr>
+                        <th class="border-0 text-uppercase small font-weight-bold text-left">Item</th>
+                        <th class="border-0 text-uppercase small font-weight-bold">Quantity</th>
+                        <th class="border-0 text-uppercase small font-weight-bold">Unit</th>
+                        <th class="border-0 text-uppercase small font-weight-bold">Unit Cost</th>
+                        <th class="border-0 text-uppercase small font-weight-bold">Total</th>
+                    </tr>
+                </thead>
+                <tbody class="text-right">
+                    @if (Model.Invoice.InvoiceItems != null)
+                    {
+                        @foreach (var item in Model.Invoice.InvoiceItems)
+                        {
+                            <tr>
+                                <td class="text-left">
+                                    @Html.DisplayFor(model => item.BookableItem.Description)
+                                    @if (!string.IsNullOrEmpty(item.BookableItem.Description2))
+                                    {
+                                        <br />@Html.DisplayFor(model => item.BookableItem.Description2)
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(model => item.Quantity)</td>
+                                <td class="text-right">@Html.DisplayFor(model => item.BookableItem.Unit)</td>
+                                <td class="text-right">@Html.DisplayFor(model => item.BookableItem.PriceString)</td>
+                                <td class="text-right">@Html.DisplayFor(model => item.SumPriceString)</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td class="font-weight-bold text-left">No VAT due to reverse charge</td>
+                            <td></td>
+                            <td></td>
+                            <td class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold text-right">@Html.DisplayFor(model => model.Price) €</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row p-2">
+        <div class="col-md-12">
+            @if (Model.Invoice.Texts != null)
+            {
+                @foreach (var t in Model.Invoice.Texts)
+                {
+                    <p>@Html.DisplayFor(model => t)</p>
+                }
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {            
+            document.getElementById("navbarId").style.display = "none";            
+    });
+</script>
+}
