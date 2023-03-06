@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using Web.Extensions;
+using Web.Helpers;
 using Web.Models;
 
 namespace Web.Controllers
@@ -141,23 +143,21 @@ namespace Web.Controllers
             model.Tooltip = "Back to document list";
         }
         #endregion
-
+       
         public IActionResult DownloadZip()
         {
-            string fileName = $"data_{IdGenerator.CreateId()}.zip";            
-            var zipFile = Path.Combine(Config.TmpDir, fileName);
-            var files = Directory.GetFiles(Config.DbDir);
-
+            string fileName = $"data_{IdGenerator.CreateId()}.zip";
+            var zipFile = Path.Combine(Config.TmpDir, fileName);            
             Maintenance.CleanTmpDir();
-            using (var archive = ZipFile.Open(zipFile, ZipArchiveMode.Create))
-            {
-                foreach (var fPath in files)
-                {
-                    archive.CreateEntryFromFile(fPath, Path.GetFileName(fPath));
-                }
-            }
+            ZipFile.CreateFromDirectory(Config.RootDir, zipFile);            
             var stream = new FileStream(zipFile, FileMode.Open);
             return File(stream, Config.ZipContentType, fileName);
+        }
+        public IActionResult CheckForMissingDocFiles()
+        {
+            var res = SanityChecks.CheckForMissingDocFiles(DocumentService);
+            string fileName = $"docs_{IdGenerator.CreateId()}.txt";
+            return File(Encoding.Unicode.GetBytes(res), Config.TextContentType, fileName);
         }
     }
 }

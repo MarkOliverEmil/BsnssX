@@ -8,12 +8,13 @@ namespace BsnssX.Core
         public const string Undefined = "---";                
         
         public static string DbDir { get; set; } = @"wwwroot\data\db"; 
-        public static string TmpDir { get => @"wwwroot\data\tmp"; }
+        public static string TmpDir { get => @"wwwroot\tmp"; }
         public static string RootDir { get => @"wwwroot\data"; }
         public static string BlobDir { get => @"data\Blobs"; }
 
         public static string PdfContentType { get => "application/pdf"; }
         public static string ZipContentType { get => "application/zip"; }
+        public static string TextContentType { get => "application/text"; }
 
         public class Calendar
         {

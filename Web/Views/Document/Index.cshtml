@@ -20,7 +20,7 @@
 }
 
 <div class="row">
-    <div class="col-7 my-auto">
+    <div class="col-6 my-auto">
         <h3>Documents</h3>
     </div>
     
@@ -39,7 +39,13 @@
                 <select class="form-control" asp-items="@ViewBag.DocTypes" asp-for="SelectedDocType" onchange="this.form.submit()" dir="rtl"></select>
             </div>
         </form>
-    </div>    
+    </div>
+    <div class="col-1 my-auto">
+        <a asp-action="CheckForMissingDocFiles">
+            <i class="bi bi-info-circle  ms-icon-big" data-toggle="tooltip" title="Back to List"></i>
+        </a>
+    </div>
+    
     <div class="col-1 my-auto">
         <a asp-action="DownloadZip">
             <i class="bi-file-earmark-zip ms-icon-big" data-toggle="tooltip" title="Download data"></i>

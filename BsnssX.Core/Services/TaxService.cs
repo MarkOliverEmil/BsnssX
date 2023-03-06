@@ -15,7 +15,9 @@ namespace BsnssX.Core.Services
 
         public List<TaxForYear> GetForMandant(string mandantId)
         {
-            return Get().Where(x => x.MandantId == mandantId).ToList();
+            return Get().Where(x => x.MandantId == mandantId)
+                .OrderByDescending(x => x.Year)
+                .ToList();
         }
     }
 }

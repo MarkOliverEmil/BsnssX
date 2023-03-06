@@ -17,7 +17,7 @@ namespace BsnssX.Core.Utils
                 {
                     var creationTime = File.GetCreationTime(file);
                     var age = now - creationTime;
-                    if (age.TotalMinutes >= 3)
+                    if (age.TotalMinutes >= 5)
                         File.Delete(file);
                 }
                 catch (Exception ex)
