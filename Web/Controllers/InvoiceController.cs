@@ -40,15 +40,13 @@ namespace Web
             IContactInfoService ciService,
             IConfigurationService configurationService,
             IInvoiceExpenseStateService invoiceExpenseStateService,
-            IEmailConfigService emailConfigService,
-            IWebHostEnvironment webHostEnvironment)
+            IEmailConfigService emailConfigService)
         {
             ConfigurationService = configurationService;
             InvoiceService = service;
             MandantService = mandantService;
             ExpenseService = expensesService;
-            DocumentService = documentService;
-            WebRootPath = webHostEnvironment.WebRootPath;
+            DocumentService = documentService;            
             AddressService = addressService;
             NoteService = noteService;
             ContactInfoService = ciService;
@@ -363,7 +361,8 @@ namespace Web
             model.MandantName = mandant.Address.Name;
             model.DocumentType = docType;
             model.OwnerId = id;
-          
+            model.AspAction = "DocumentView";
+            model.AspController = "Invoice";
 
             if (docType == Consts.Invoice)
             {
@@ -397,7 +396,7 @@ namespace Web
                 case Modus.Create:
                     {
                         if (ModelState.IsValid && model != null && model.Document != null)
-                            DocumentService.CreateDocument(model, WebRootPath);
+                            DocumentService.CreateDocument(model);
                         break;
                     }
             }

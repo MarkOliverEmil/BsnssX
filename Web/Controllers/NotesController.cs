@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Web.Extensions;
 using Web.Helpers;
 using Web.Models;
@@ -20,11 +19,10 @@ namespace Web.Controllers
     {
         const string DefaultAction = "Index";
         
-        public NotesController(INoteService service, IDocumentService documentService, IWebHostEnvironment webHostEnvironment)
+        public NotesController(INoteService service, IDocumentService documentService)
         {
             NoteService = service;
             DocumentService = documentService;
-            WebRootPath = webHostEnvironment.WebRootPath;            
         }
         
         public ActionResult Index()
@@ -118,8 +116,5 @@ namespace Web.Controllers
             var stream = new FileStream(filePath, FileMode.Open);
             return File(stream, Config.PdfContentType, fileName);
         }
-
-       
-        
     }
 }

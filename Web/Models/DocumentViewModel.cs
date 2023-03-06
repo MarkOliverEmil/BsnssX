@@ -1,4 +1,5 @@
 ﻿using BsnssX.Core;
+using BsnssX.Core.Extensions;
 using BsnssX.Core.Models;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -56,31 +57,20 @@ namespace Web.Models
         public string Comment { get; set; }
         public string FileName { get; set; }
 
-
-
-        public string PathName { get
-            {
-                if (TheDocument == null)
-                    return string.Empty;
-                //string pn = Path.Combine(Config.RootDir, TheDocument.Directory, TheDocument.StorageFile).Replace("\\", "/");
-                string pn = "~/" + Path.Combine(TheDocument.Directory, TheDocument.StorageFile).Replace("\\", "/");
-                return pn;
-            } 
-        }
+        public string PathName { get => TheDocument.GetUrlPath();  }
+        
         public bool HasImage { get => TheDocument != null && TheDocument.ContentType.StartsWith("image"); }
-
         public bool IsText { get => TheDocument != null && TheDocument.ContentType.StartsWith("text"); }
 
         public string GetText
         {
             get
             {
-                if (IsText == false)
+                if (TheDocument == null || IsText == false)
                     return string.Empty;
-                string pn = Path.Combine(Config.RootDir, TheDocument.Directory, TheDocument.StorageFile).Replace("\\", "/");                
+                string pn = TheDocument.GetFilePath();
                 var res = File.ReadAllText(pn);
                 return res;
-
             }
         }
 

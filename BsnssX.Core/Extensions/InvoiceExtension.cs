@@ -1,8 +1,10 @@
 ﻿using BsnssX.Core.Models;
+using BsnssX.Core.Services;
 using System.Linq;
 
 namespace BsnssX.Core.Extensions
 {
+
     public static class InvoiceExtension
     {        
 

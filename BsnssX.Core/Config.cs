@@ -5,11 +5,11 @@ namespace BsnssX.Core
     public class Config
     {    
         public const string DefaultCurrency = "€";
-        public const string Undefined = "---";                
-        
+        public const string Undefined = "---";
+
+        public static string RootDir { get => @"wwwroot"; }
         public static string DbDir { get; set; } = @"wwwroot\data\db"; 
-        public static string TmpDir { get => @"wwwroot\tmp"; }
-        public static string RootDir { get => @"wwwroot\data"; }
+        public static string TmpDir { get => @"wwwroot\tmp"; }        
         public static string BlobDir { get => @"data\Blobs"; }
 
         public static string PdfContentType { get => "application/pdf"; }
@@ -30,7 +30,6 @@ namespace BsnssX.Core
             public const string Year = "Year";
             public const string Jan_Dec = "Jan - Dec";
         }
-
 
         public class ContactInfo
         {

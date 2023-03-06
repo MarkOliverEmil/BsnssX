@@ -9,8 +9,7 @@ namespace BsnssX.Core.Models
         [Key]
         public string Id { get; set; }
         public string StorageFile { get; set; }
-        public string Directory { get; set; }
-
+        
         public string MandantId { get; set; }
         public int Year { get; set; }
         public string FileName { get; set; }

@@ -1,9 +1,7 @@
 ﻿using BsnssX.Core.Interfaces;
 using BsnssX.Core.Models;
 using BsnssX.Core.Services;
-using BsnssX.Core.Utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Web.Extensions;
@@ -16,12 +14,14 @@ namespace Web.Controllers
     {
         const string DefaultAction = "Details";
         const string TaxAction = "TaxDetails";
-
         const string DocView = "DocumentView";        
 
-        public MandantController(IInvoiceService service, IMandantService mandantService, ITaxService taxService,
+        public MandantController(IInvoiceService service, 
+            IMandantService mandantService, 
+            ITaxService taxService,
             IInvoiceExpenseStateService invoiceExpenseStateService,
-            IDocumentService documentService, IConfigurationService configurationService, IWebHostEnvironment webHostEnvironment)
+            IDocumentService documentService, 
+            IConfigurationService configurationService)
         {
             InvoiceService = service;            
             TaxService = taxService;
@@ -29,8 +29,7 @@ namespace Web.Controllers
             ConfigurationService = configurationService;            
             MandantService = mandantService;
             DocumentService = documentService;
-            InvoiceExpenseStateService = invoiceExpenseStateService;
-            WebRootPath = webHostEnvironment.WebRootPath;            
+            InvoiceExpenseStateService = invoiceExpenseStateService;                       
         }
                
         public ActionResult Details(string id)
@@ -112,7 +111,7 @@ namespace Web.Controllers
                 case Modus.Create:
                     {
                         if (ModelState.IsValid && model != null && model.Document != null)
-                            DocumentService.CreateDocument(model, WebRootPath);
+                            DocumentService.CreateDocument(model);
                         break;
                     }
             }

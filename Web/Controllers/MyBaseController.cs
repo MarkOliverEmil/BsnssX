@@ -1,4 +1,5 @@
-﻿using BsnssX.Core.Interfaces;
+﻿using BsnssX.Core.Extensions;
+using BsnssX.Core.Interfaces;
 using BsnssX.Core.Models;
 using BsnssX.Core.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -28,7 +29,7 @@ namespace Web.Controllers
         
         public IInvoiceExpenseStateService InvoiceExpenseStateService { get; set; }
         public Mandant GetMandant() => MandantService.Get(MandantId);
-        public string WebRootPath { get; set; }
+        //public string WebRootPath { get; set; }
         public string MandantId
         {
             get => ConfigurationService.Get().MandantId;
@@ -72,7 +73,7 @@ namespace Web.Controllers
             if (doc == null)
                 return View(alternativeAction);
 
-            var filePath = Path.Combine(WebRootPath, "data", doc.Directory, doc.StorageFile);
+            var filePath = doc.GetFilePath();
             var stream = new FileStream(filePath, FileMode.Open);
             return File(stream, doc.ContentType, doc.FileName);
         }

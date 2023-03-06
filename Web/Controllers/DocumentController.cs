@@ -24,14 +24,11 @@ namespace Web.Controllers
         public DocumentController(        
             IMandantService mandantService,        
             IDocumentService documentService,
-            IConfigurationService configurationService,        
-            IWebHostEnvironment webHostEnvironment)
-            
+            IConfigurationService configurationService)            
         {
             ConfigurationService = configurationService;
             MandantService = mandantService;         
             DocumentService = documentService;
-            WebRootPath = webHostEnvironment.WebRootPath;
         }
         
         // list all documents for mandant
@@ -73,16 +70,7 @@ namespace Web.Controllers
             return RedirectToAction(DefaultAction);
         }
 
-        public IActionResult DownloadDocument(string id)
-        {
-            var doc = DocumentService.Get().FirstOrDefault(x => x.Id == id);
-            if (doc == null)
-                return View(DefaultAction);
-
-            var filePath = Path.Combine(WebRootPath, doc.Directory, doc.StorageFile);
-            var stream = new FileStream(filePath, FileMode.Open);
-            return File(stream, doc.ContentType, doc.FileName);
-        }
+     
         [HttpPost]
         public IActionResult DocumentView(DocumentViewModel model)
         {
@@ -100,7 +88,7 @@ namespace Web.Controllers
                 case Modus.Create:
                     {
                         if (ModelState.IsValid && model != null && model.Document != null)
-                            DocumentService.CreateDocument(model, WebRootPath);
+                            DocumentService.CreateDocument(model);
                         break;
                     }
             }

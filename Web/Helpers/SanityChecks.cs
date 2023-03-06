@@ -1,4 +1,5 @@
 ﻿using BsnssX.Core;
+using BsnssX.Core.Extensions;
 using BsnssX.Core.Services;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,15 @@ namespace Web.Helpers
             var docs = service.Get();
             foreach (var doc in docs)
             {
-                var fn = Path.Combine(Config.RootDir, doc.Directory, doc.StorageFile);
+                if (doc.MandantId == null)
+                {
+                    sb.AppendLine("MandantId is null");
+                    var json = JsonSerializer.Serialize(doc);
+                    sb.AppendLine(json);
+                    sb.AppendLine();
+                    continue;
+                }
+                var fn = doc.GetFilePath();
                 if (!System.IO.File.Exists(fn))
                 {
                     sb.AppendLine($"{fn} does not exist");
@@ -27,7 +36,7 @@ namespace Web.Helpers
                 }
             }
 
-            var dirs = Directory.GetDirectories(Config.RootDir + "\\Blobs");
+            var dirs = Directory.GetDirectories(Path.Combine(Config.RootDir, Config.BlobDir));
             foreach (var dir in dirs) 
             {                
                 var files = Directory.GetFiles(dir);
