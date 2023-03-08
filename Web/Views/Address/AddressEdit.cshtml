@@ -8,7 +8,6 @@
         <h4>Address</h4>
     </div>
     <div class="col text-right">
-
         <a asp-action="Index">
             <i class="bi bi-arrow-return-left  ms-icon-big" data-toggle="tooltip" title="Back to List"></i>
         </a>
@@ -78,9 +77,21 @@
             </div>
         </div>
 
+        <hr class="my-3" />
+
+        <div class="row">
+            <div class="col-11">
+                <h3>Communication</h3>
+            </div>
+            <div class="col-1 text-right">
+                <a asp-action="AddContactInfo" asp-route-id="@Model.Address.Id">
+                    <i class="bi-plus-circle ms-icon-big" data-toggle="tooltip" title="Add address"></i>
+                </a>
+            </div>
+        </div>
+
         @if (Model.ContactInfos != null && Model.ContactInfos.Any())
-        {
-            <hr class="my-3" />
+        {            
             <table class="table  table-striped table-hover table-borderless">
                 <tbody>
                     @foreach (var item in Model.ContactInfos)
@@ -90,12 +101,16 @@
                             <td>@Html.DisplayFor(modelItem => item.Subtype)</td>
                             <td>@Html.DisplayFor(modelItem => item.Value)</td>
                             <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                            <td class="fit">
+                                <a asp-action="EditContactInfo" asp-route-id="@item.Id">
+                                    <i class="bi-pencil ms-icon-normal" data-toggle="tooltip" title="Edit"></i>
+                                </a>
+                            </td>                            
                         </tr>
                     }
                 </tbody>
             </table>
         }
-
         <hr class="my-3">
 
         <div class="row">

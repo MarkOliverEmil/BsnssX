@@ -1,0 +1,93 @@
+﻿@model ContactInfoModel
+@{
+    ViewData["Title"] = "Communication";
+
+    string buttonTitle = "xxx";
+    string title = "Add";
+    @if (Model.Modus == Modus.Create)
+    {
+        buttonTitle = "Add";
+        title = "Create";
+    }
+    else if (Model.Modus == Modus.Edit)
+    {
+        buttonTitle = "Save";
+        title = "Edit";
+    }    
+}
+
+<div class="row">
+    <div class="col">
+        <h4>@title</h4>
+    </div>
+    <div class="col text-right">
+        <div class="btn-group">
+            @if (Model.Modus == Modus.Edit && (!string.IsNullOrEmpty(Model.AspActionDelete)))
+            {
+                DeleteDialogModel ddm = new DeleteDialogModel();
+                ddm.Text = "Are you sure you want to delete ?";
+                ddm.Id = @Model.ContactInfo.Id;
+                ddm.Title = "Confirm delete '" + Model.ContactInfo.Value + "'";
+                ddm.AspAction = @Model.AspActionDelete;
+                ddm.AspController = @Model.AspController;
+                <a asp-action="" data-toggle="modal" data-target="#DeleteModal">
+                    <i class="bi bi-trash3 ms-icon-big" data-toggle="tooltip" title="Delete: @Model.ContactInfo.Value"></i>
+                </a>
+                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
+                    @await Html.PartialAsync("_DeleteDialog", ddm);
+                </div>
+            }
+            <a asp-action="Index">
+                <i class="bi bi-arrow-return-left  ms-icon-big" data-toggle="tooltip" title="Back to List"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<hr class="my-3" />
+<div class="container">
+    <form asp-action="EditContactInfo" asp-controller="Address" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="@Model.ContactInfo.Id" />
+        <input type="hidden" asp-for="@Model.Modus" />
+        <input type="hidden" asp-for="@Model.ContactInfo.OwnerId" />
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Type</label>
+                    <input asp-for="@Model.ContactInfo.Type" class="form-control" />
+                    <span asp-validation-for="@Model.ContactInfo.Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Subtype</label>
+                    <input asp-for="@Model.ContactInfo.Subtype" class="form-control" />
+                    <span asp-validation-for="@Model.ContactInfo.Subtype" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="control-label">Value</label>
+                    <input asp-for="@Model.ContactInfo.Value" class="form-control" />
+                    <span asp-validation-for="@Model.ContactInfo.Value" class="text-danger"></span>
+                </div>
+            </div>            
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label">Comment</label>                
+                <textarea asp-for="@Model.ContactInfo.Comment" class="form-control" text-wrap:normal" type="text" rows="5" placeholder="Please add your comment here"></textarea>
+                <span asp-validation-for="@Model.ContactInfo.Comment" class="text-danger"></span>
+            </div>
+        </div>
+      
+        <div class="form-group my-3">
+            <input type="submit" value="@buttonTitle" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
