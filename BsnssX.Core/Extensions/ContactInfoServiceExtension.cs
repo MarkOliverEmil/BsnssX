@@ -14,17 +14,6 @@ namespace BsnssX.Core.Extensions
                 .Select(ci => ci.Value)
                 .ToList();
             return res;
-        }
-        public static string ReportEmailFrom(this IContactInfoService service, string mandantId)
-        {
-            var res = service
-                .GetByOwnerId(mandantId)
-                .Where(ci => ci.Type == Config.ContactInfo.Email && ci.Subtype == Config.ContactInfo.Reportfrom)
-                .Select(ci => ci.Value)
-                .ToList()
-                .FirstOrDefault();
-            return res;
-        }
-        
+        }               
     }
 }

@@ -2,7 +2,6 @@
 using BsnssX.Core.Interfaces;
 using BsnssX.Core.Models;
 using BsnssX.Core.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -13,9 +12,8 @@ namespace Web.Controllers
 {
     public class MyBaseController : Controller
     {        
-        public MyBaseController()
-        {            
-        }        
+        public MyBaseController() {}
+        
         public IInvoiceService InvoiceService { get; set; }
         public ITaxService TaxService { get; set; }
         public IMandantService MandantService { get; set; }
@@ -25,11 +23,10 @@ namespace Web.Controllers
         public INoteService NoteService { get; set; }
         public IAddressService AddressService { get; set; }
         public IExpenseService ExpenseService { get; set; }
-        public IEmailConfigService  EmailConfigService { get; set; }
-        
+        public IEmailConfigService  EmailConfigService { get; set; }        
         public IInvoiceExpenseStateService InvoiceExpenseStateService { get; set; }
         public Mandant GetMandant() => MandantService.Get(MandantId);
-        //public string WebRootPath { get; set; }
+        
         public string MandantId
         {
             get => ConfigurationService.Get().MandantId;

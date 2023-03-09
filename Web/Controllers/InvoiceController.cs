@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using Web.Controllers;
 using Web.Extensions;
@@ -29,7 +30,8 @@ namespace Web
     {
         const string DefaultAction = "Index";
         const string DocView = "DocumentView";
-
+        static HttpClient s_HttpClient = new HttpClient();
+    
         public InvoiceController(
             IInvoiceService service,
             IExpenseService expensesService,
@@ -132,8 +134,7 @@ namespace Web
 
             if (emailRecipients.Count < 1)
                 return RedirectToAction(DefaultAction);
-
-            var from = ContactInfoService.ReportEmailFrom(MandantId);
+            var from = GetMandant().Email;
             if (string.IsNullOrEmpty(from))
                 return RedirectToAction(DefaultAction);
 
@@ -141,17 +142,11 @@ namespace Web
             var year = model.SelectedYear;
             var url = HttpContext.Request.GetEncodedUrl().Replace("SendReport", "ShowReport");
             url += $"/{MandantId}?year={year}&period={period}";
-            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
-            myRequest.Method = "GET";
-            WebResponse myResponse = myRequest.GetResponse();
-            StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
-            string body = sr.ReadToEnd();
-            sr.Close();
-            myResponse.Close();          
-                        
+            
+            
+            var body = s_HttpClient.GetStringAsync(url).Result;
             DateUtils.GetMonthsForString(period, out string p);
             string subject = $"Report {p} - {year}";
-
 
             var sender = new SendEmail();
             bool success = sender.SendHtmlEmail(EmailConfigService.Get().FirstOrDefault(), from, emailRecipients, subject, body);

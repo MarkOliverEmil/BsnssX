@@ -34,8 +34,7 @@ namespace BsnssX.Core
         public class ContactInfo
         {
             public const string Email = "email";
-            public const string Report = "report";
-            public const string Reportfrom = "reportfrom";
+            public const string Report = "report";            
         }
     }   
 }

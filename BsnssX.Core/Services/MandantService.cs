@@ -42,6 +42,7 @@ namespace BsnssX.Core.Services
         {
             Mandant res = new Mandant();
             res.Id = src.Id;
+            res.Email = src.Email;
             res.Image = src.Image;
             res.Address = src.Address;
             res.BookableItems = src.BookableItems;
