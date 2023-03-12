@@ -68,6 +68,7 @@ namespace BsnssX.Core.Services
             res.Documents = docService.Get().Where(x => x.MandantId == res.Id).ToList();
 
             res.TaxesForYear = new TaxService().GetForMandant(res.Id);
+            res.InvoiceText = src.InvoiceText;
             return res;
         }
 

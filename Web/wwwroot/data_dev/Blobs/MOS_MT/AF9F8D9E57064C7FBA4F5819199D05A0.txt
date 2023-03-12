@@ -1,0 +1,24 @@
+
+ISS Logfile :	C:\inetpub\logs\LogFiles\W3SVC8
+
+Problembeschreibung : 
+
+1dbbcbd7-098c-4d01-ad01-fdc6d57cb7b2
+29f54919-12be-4dd6-8d42-05870ab4fa23
+
+Es treten sporadisch Fehler bei der Kommunikation von Cargoline-PushService zu myschaeflein-OMS auf.
+Die Kommunikation ist teilweise mehrere Tage in Ordnung, aber manchmal kommt es zu Sendeproblemen
+
+
+Environment:Production AND NOT (kafka OR "Control-Verbindung" OR "Check completed") AND ComponentName:Eikona.Logistics.Platform.CargoLine.Push.Service AND message:"https://my.schaeflein.de/Oms/Api" AND ms AND DurationMilliseconds:[30000 TO 9999999]
+Environment:Production AND NOT (kafka OR "Control-Verbindung" OR "Check completed") AND ComponentName:Eikona.Logistics.Platform.CargoLine.Push.Service AND message:"https://my.schaeflein.de/Oms/Api" AND ms AND DurationMilliseconds:[30000 TO 9999999]
+
+
+Environment:Production AND NOT (kafka OR "Control-Verbindung" OR "Check completed") AND ComponentName:Eikona.Logistics.Platform.CargoLine.Push.Service AND message:"https://my.schaeflein.de/Oms/Api" AND ms AND DurationMilliseconds:[30000 TO 9999999]
+
+https://cargoline-clientapi.schaeflein.de/api/v1
+
+Environment:Production AND ComponentName:Eikona.Logistics.Platform.CargoLine.Push.Service  AND ms AND DurationMilliseconds:[30 TO 2000]
+
+
+AND DurationMilliseconds:[1000 TO 999999999999]

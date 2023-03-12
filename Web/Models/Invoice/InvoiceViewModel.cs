@@ -12,6 +12,12 @@ namespace Web.Models
         {
             Invoice = inv;
             NoAttachments = noAttachments;
+
+            var firstLine = inv.Comment.GetFirstLine();
+            foreach (var item in inv.InvoiceItems)
+                item.BookableItem.Description2 = firstLine;
+
+
         }
         public Invoice Invoice { get; set; }
 

@@ -38,6 +38,7 @@ namespace Web.Controllers
                 if (item.MandantId == value)
                     return;
                 item.MandantId = value;
+                item.Year = MandantService.Get(MandantId).Years.FirstOrDefault();
                 ConfigurationService.Update(item);
             }
         }

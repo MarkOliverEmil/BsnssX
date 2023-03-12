@@ -1,0 +1,8 @@
+[
+  {
+    "Id" :  "sendinblue",
+    "server": "smtp-relay.sendinblue.com",
+    "login": "markspaeth@yahoo.com",
+    "pwd": "xsmtpsib-3c3c5a217aa6621be131b93ded1e1685184f31251e5080115e5f8200a4385c1d-Q7rZ6nLFkEJBCtfI"
+  }
+]

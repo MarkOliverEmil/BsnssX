@@ -1,0 +1,96 @@
+[
+  {
+    "Id": "MSC_BG",
+    "Image": "/images/Bulgaria_Sofia.jpg",
+    "Email": "markspaeth@yahoo.com",
+    "Address": {
+      "Id": "MSC_BG",
+      "Name": "Melita Software Consulting Ltd",
+      "Name2": "\u041C\u0415\u041B\u0418\u0422\u0410 \u0421\u041E\u0424\u0422\u0423\u0415\u0420 \u041A\u042A\u041D\u0421\u0410\u041B\u0422\u0418\u041D\u0413",
+      "AddressLine1": "Blvd. 14 Petko Slaveikov St",
+      "AddressLine2": "Blagoevgrad, p.k. 2700",
+      "AddressLine3": null,
+      "Country": "Bulgaria",
+      "VatNumber": "BG 2071 14670"
+    },
+    "Banks": [
+      "55daa6eb52074a4e9360667e932ee646"
+    ],
+    "Clients": [
+      "Eikona"
+    ],
+    "Vendors": [
+      "NH_BG"
+    ],
+    "BookableItems": [
+      {
+        "Id": "D3C1EDDEB76B4EBEB58A9F283DE4E1B8",
+        "Description": "Software Development Eikona",
+        "Description2": null,
+        "Unit": "hour",
+        "Price": 56,
+        "Currency": "\u20AC",
+        "PriceString": "56 \u20AC"
+      }
+    ],
+    "Years": [
+      2023,
+      2022
+    ],
+    "InvoiceText": [
+      "Thank you for your business, it’ a pleasure to work on your project.",
+      "",
+      "",
+      "Best regards",
+      "Mark Spaeth"
+    ]
+  },
+  {
+    "Id": "MOS_MT",
+    "Email": "markspaeth@yahoo.com",
+    "Image": "/images/Malta.jpg",
+    "Address": {
+      "Id": "MOS_MT",
+      "Name": "Mark Spaeth",
+      "Name2": "Freelancer Malta",
+      "AddressLine1": "15, Triq San Duminku",
+      "AddressLine2": "Apartment 4",
+      "AddressLine3": "Tas-Sliema",
+      "Country": "Malta",
+      "VatNumber": "MT26091101"
+    },
+    "Banks": [
+      "384fa8b2fd0c46e5ba2d38a4742b596c",
+      "1dc77f1faa9b4868921ba8b9ef3390ad"
+
+    ],
+    "Clients": [
+      "MSC_BG"
+    ],
+    "Vendors": [
+    ],
+    "BookableItems": [
+      {
+        "Id": "CC0346B6F47C4491AA82BCA86329FB2B",
+        "Description": "Software Development",
+        "Description2": null,
+        "Unit": "hour",
+        "Price": 40,
+        "Currency": "\u20AC",
+        "PriceString": "40 \u20AC"
+      }
+    ],
+    "Years": [
+      2023,
+      2022,
+      2021
+    ],
+    "InvoiceText": [
+      "Thank you for your business, it’ a pleasure to work on your project.",
+      "",
+      "",
+      "Best regards",
+      "Mark Spaeth"
+    ]
+  }
+]

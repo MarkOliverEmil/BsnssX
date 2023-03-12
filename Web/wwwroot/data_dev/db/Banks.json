@@ -1,0 +1,37 @@
+[
+  {
+    "Id": "3d126f23b13b464b8a681962256d14b4",
+    "BankName": "Revolut",
+    "AccountHolder": "Mark Spaeth",
+    "Bic": "REVOLT21XXX",
+    "Iban": "REVIBAN"
+  },
+  {
+    "Id": "384fa8b2fd0c46e5ba2d38a4742b596c",
+    "BankName": "MeDirect",
+    "AccountHolder": "Mark Spaeth",
+    "Bic": "MBWMMTMTXXX",
+    "Iban": "MeDirectIban"
+  },
+  {
+    "Id": "1dc77f1faa9b4868921ba8b9ef3390ad",
+    "BankName": "IngDiba",
+    "AccountHolder": "Mark Spaeth",
+    "Bic": "INGDDEFFXXX",
+    "Iban": "DE80 5001 0517 5412 9578 46"
+  },
+  {
+    "Id": "55daa6eb52074a4e9360667e932ee646",
+    "BankName": "Wise",
+    "AccountHolder": "MELITA SOFTWARE CONSULTING LTD.",
+    "Bic": "TRWIBEB1XXX",
+    "Iban": "BE62 9674 4651 9961"
+  },
+  {
+    "Id": "bf672ed331e2412cb30a4e868b3ce601",
+    "BankName": "Eurobank EFG Bulgaria AD",
+    "AccountHolder": "Nina Hadhziyska",
+    "Bic": "BPBIBGSF",
+    "Iban": "BG33BPBI79481090162701"
+  }
+]

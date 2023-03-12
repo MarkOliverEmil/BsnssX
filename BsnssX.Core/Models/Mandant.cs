@@ -28,5 +28,8 @@ namespace BsnssX.Core.Models
 
         
         public List<int> Years { get; set; }
+
+        public List<string> InvoiceText { get; set; }
+        
     }
 }

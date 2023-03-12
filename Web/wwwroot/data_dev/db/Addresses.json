@@ -1,0 +1,90 @@
+[
+  {
+    "Id": "CFR_MT",
+    "Name": "Commisioner for Revenue",
+    "Name2": null,
+    "AddressLine1": "Block 4, Triq Vincenzo Dimech",
+    "AddressLine2": "Floriana",
+    "AddressLine3": null,
+    "Country": "Malta",
+    "VatNumber": "---",
+    "Comment": null
+  },
+  {
+    "Id": "NH_BG",
+    "Name": "Nina Hadhziyska",
+    "Name2": null,
+    "AddressLine1": "Blagoevgrad,Bulgaria",
+    "AddressLine2": null,
+    "AddressLine3": null,
+    "Country": "Bulgaria",
+    "VatNumber": "---",
+    "Comment": null
+  },
+  {
+    "Id": "AIR_BNB",
+    "Name": "Airbnb Ireland UC",
+    "Name2": null,
+    "AddressLine1": "Dublin 4",
+    "AddressLine2": "South Lotts Road, Ringsend",
+    "AddressLine3": null,
+    "Country": "Ireland",
+    "VatNumber": "IE9827384L",
+    "Comment": null
+  },
+  {
+    "Id": "MSC_BG",
+    "Name": "Melita Software Consulting Ltd",
+    "Name2": "\u041C\u0415\u041B\u0418\u0422\u0410 \u0421\u041E\u0424\u0422\u0423\u0415\u0420 \u041A\u042A\u041D\u0421\u0410\u041B\u0422\u0418\u041D\u0413",
+    "AddressLine1": "Blvd. 14 Petko Slaveikov St",
+    "AddressLine2": "Blagoevgrad, p.k. 2700",
+    "AddressLine3": null,
+    "Country": "Bulgaria",
+    "VatNumber": "BG 2071 14670",
+    "Comment": null
+  },
+  {
+    "Id": "Eikona",
+    "Name": "Eikona AG",
+    "Name2": "Logistics Group",
+    "AddressLine1": "Am alten Bahnhof 8",
+    "AddressLine2": "97332 Volkach",
+    "AddressLine3": "Bayern",
+    "Country": "Germany",
+    "VatNumber": "DE 2294 15176",
+    "Comment": null
+  },
+  {
+    "Id": "9A01A70F44BC46A9BA9ACED44F54558D",
+    "Name": "Kevin",
+    "Name2": "Farrugia",
+    "AddressLine1": "Tas-Sliema",
+    "AddressLine2": null,
+    "AddressLine3": null,
+    "Country": "Malta",
+    "VatNumber": "????",
+    "Comment": "fadsfadsf"
+  },
+  {
+    "Id": "BF52696F04CD469D82C09EB38741EA22",
+    "Name": "Hans",
+    "Name2": "Meier",
+    "AddressLine1": null,
+    "AddressLine2": null,
+    "AddressLine3": null,
+    "Country": null,
+    "VatNumber": "sdfasdf",
+    "Comment": "fasdfas fads"
+  },
+  {
+    "Id": "MOS_MT",
+    "Name": "Mark Spaeth",
+    "Name2": "Freelancer Malta",
+    "AddressLine1": "15, Triq San Duminku",
+    "AddressLine2": "Apartment 4",
+    "AddressLine3": "SLM 1404, Sliema",
+    "Country": "Malta",
+    "VatNumber": "MT26091101",
+    "Comment": "ID Card Number:\t0218799A\r\nID Card Document Number:\t MT9733566\r\n"
+  }
+]

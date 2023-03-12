@@ -1,0 +1,21 @@
+4334343 
+
+
+Neuen FTP User angelegt
+
+
+PLP_DE407
+4529Kaabv7zq
+
+D:\srv\www\ftp\PartLoad\FtpRoot\DE407
+
+ftp://PLP_DE407:4529Kaabv7zq@portal.elvis-ag.com/
+
+
+
+PLP_DE407
+4529Kaabv7zq
+
+D:\srv\www\ftp\PartLoad\FtpRoot\DE407
+
+ftp://PLP_DE407:4529Kaabv7zq@portal.elvis-ag.com/

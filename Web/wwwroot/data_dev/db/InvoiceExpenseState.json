@@ -1,0 +1,32 @@
+[
+  {
+    "Id": "668895AE72724265BD7ACADA3FEEABB5",
+    "MandantId": "MOS_MT",
+    "Year": 2021,
+    "Status": 2
+  },
+  {
+    "Id": "E68ADEBDBEA84024997DE2288CC812D0",
+    "MandantId": "MOS_MT",
+    "Year": 2022,
+    "Status": 1
+  },
+  {
+    "Id": "8E7969D1646148BAAC74345E7ADC4380",
+    "MandantId": "MOS_MT",
+    "Year": 2023,
+    "Status": 0
+  },
+  {
+    "Id": "8199B09BBF394BF8A31742490866A258",
+    "MandantId": "MSC_BG",
+    "Year": 2023,
+    "Status": 0
+  },
+  {
+    "Id": "666814CDBBE041ADA8228D9136CC1311",
+    "MandantId": "MSC_BG",
+    "Year": 2022,
+    "Status": 0
+  }
+]

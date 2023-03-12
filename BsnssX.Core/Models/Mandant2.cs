@@ -20,5 +20,6 @@ namespace BsnssX.Core.Models
         public List<BookableItem> BookableItems { get; set; } = new List<BookableItem>();
 
         public List<int> Years { get; set; } = new List<int>();
+        public List<string> InvoiceText { get; set; }
     }
 }

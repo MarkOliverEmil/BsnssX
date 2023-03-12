@@ -118,6 +118,7 @@ namespace Web
         public ActionResult Details(string id)
         {
             InvoiceViewModel model = new InvoiceViewModel(InvoiceService.Get(id), 0);
+            model.Invoice.Texts =  MandantService.Get(model.Invoice.MandantId) .InvoiceText;
             model.Invoice.Calculate();
             ViewBag.ImageFile = MandantService.Get(model.Invoice.MandantId).Image;
             return View(model);
