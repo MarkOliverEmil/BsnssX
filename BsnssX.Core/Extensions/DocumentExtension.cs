@@ -12,6 +12,8 @@ namespace BsnssX.Core.Extensions
         }
         public static string GetUrlPath(this Document document)
         {
+            if (document == null)
+                return null;
             var filePath = "~/" + Path.Combine(Config.BlobDir, document.MandantId, document.StorageFile).Replace("\\", "/");                    
             return filePath;
         }
